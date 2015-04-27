@@ -2,8 +2,10 @@
 
 namespace Phapi\Middleware\Deserializer\Json;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Phapi\Contract\Di\Container;
+use Phapi\Contract\Middleware\Middleware;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Phapi\Exception\BadRequest;
 
 /**
@@ -17,7 +19,8 @@ use Phapi\Exception\BadRequest;
  * @license  MIT (http://opensource.org/licenses/MIT)
  * @link     https://github.com/phapi/serializer-json
  */
-class Json {
+class Json implements Middleware
+{
 
     /**
      * Valid mime types
@@ -47,13 +50,13 @@ class Json {
      * an attribute does not exists and the "http_content_type" header matches one of
      * the mime types configured in the deserializer.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param $next
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param callable $next
      * @return mixed
      * @throws BadRequest
      */
-    public function __invoke(Request $request, Response $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         // Get content mime type
         $contentType = $this->getContentType($request);
@@ -86,10 +89,10 @@ class Json {
      *
      * If no attribute can be found, use the content type header.
      *
-     * @param Request $request
+     * @param ServerRequestInterface $request
      * @return mixed|null|string
      */
-    private function getContentType(Request $request)
+    private function getContentType(ServerRequestInterface $request)
     {
         // Check for an attribute
         if (null !== $accept = $request->getAttribute('Content-Type', null)) {

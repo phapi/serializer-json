@@ -2,10 +2,12 @@
 
 namespace Phapi\Middleware\Serializer\Json;
 
+use Phapi\Contract\Middleware\Middleware;
 use Phapi\Exception\InternalServerError;
 use Phapi\Http\Stream;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
+use Phapi\Contract\Di\Container;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 
 /**
@@ -19,7 +21,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
  * @license  MIT (http://opensource.org/licenses/MIT)
  * @link     https://github.com/phapi/serializer-json
  */
-class Json {
+class Json implements Middleware
+{
 
     /**
      * Valid mime types
@@ -49,13 +52,13 @@ class Json {
      * an attribute does not exists and the "http_accept" header matches one of
      * the mime types configured in the serializer.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param $next
-     * @return Response
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param callable $next
+     * @return ResponseInterface
      * @throws InternalServerError
      */
-    public function __invoke(Request $request, Response $response, $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next = null)
     {
         // Call next middleware
         $response = $next($request, $response, $next);
