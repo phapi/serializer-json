@@ -5,7 +5,6 @@ namespace Phapi\Middleware\Serializer\Json;
 use Phapi\Contract\Middleware\Middleware;
 use Phapi\Exception\InternalServerError;
 use Phapi\Http\Stream;
-use Phapi\Contract\Di\Container;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -105,10 +104,10 @@ class Json implements Middleware
      * be used. This is typically a result of content negotiation. If no
      * attribute exists, check for an accept header instead.
      *
-     * @param Request $request
+     * @param ServerRequestInterface $request
      * @return mixed|string
      */
-    private function getAcceptMimeType(Request $request)
+    private function getAcceptMimeType(ServerRequestInterface $request)
     {
         // Check for an attribute
         if (null !== $accept = $request->getAttribute('Accept', null)) {
