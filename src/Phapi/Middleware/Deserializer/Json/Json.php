@@ -2,7 +2,8 @@
 
 namespace Phapi\Middleware\Deserializer\Json;
 
-use Phapi\Contract\Middleware\Middleware;
+use Phapi\Contract\Di\Container;
+use Phapi\Contract\Middleware\SerializerMiddleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Phapi\Exception\BadRequest;
@@ -18,7 +19,7 @@ use Phapi\Exception\BadRequest;
  * @license  MIT (http://opensource.org/licenses/MIT)
  * @link     https://github.com/phapi/serializer-json
  */
-class Json implements Middleware
+class Json implements SerializerMiddleware
 {
 
     /**
@@ -32,6 +33,13 @@ class Json implements Middleware
     ];
 
     /**
+     * Dependency injection container
+     *
+     * @var Container
+     */
+    private $container;
+
+    /**
      * Create deserializer
      *
      * Pass additional mime types that the deserializer should accept
@@ -42,6 +50,24 @@ class Json implements Middleware
     public function __construct($mimeTypes = null)
     {
         $this->mimeTypes = ($mimeTypes === null) ? $this->mimeTypes : $mimeTypes;
+    }
+
+    /**
+     * Set dependency injection container
+     *
+     * @param Container $container
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    /**
+     * Register supported mime types to the container
+     */
+    public function registerMimeTypes()
+    {
+        $this->container['contentTypes'] = array_merge($this->container['contentTypes'], $this->mimeTypes);
     }
 
     /**

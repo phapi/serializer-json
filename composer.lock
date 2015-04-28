@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phapi/contract.git",
-                "reference": "93d4ec2f3f3f040b19802eddf38f0cf515852c69"
+                "reference": "75156d929c52273b2e8c80d71d1bd840ca7e1c45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phapi/contract/zipball/93d4ec2f3f3f040b19802eddf38f0cf515852c69",
-                "reference": "93d4ec2f3f3f040b19802eddf38f0cf515852c69",
+                "url": "https://api.github.com/repos/phapi/contract/zipball/75156d929c52273b2e8c80d71d1bd840ca7e1c45",
+                "reference": "75156d929c52273b2e8c80d71d1bd840ca7e1c45",
                 "shasum": ""
             },
             "require": {
@@ -47,7 +47,7 @@
                 "interfaces",
                 "phapi"
             ],
-            "time": "2015-04-21 10:47:39"
+            "time": "2015-04-28 10:42:44"
         },
         {
             "name": "phapi/exception",
@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phapi/exception.git",
-                "reference": "e4be941b1b2e3d18ff29ed0e1af646eaa5e4b09e"
+                "reference": "6fa08864eb5779b2530e69d1e35b383ef432de14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phapi/exception/zipball/e4be941b1b2e3d18ff29ed0e1af646eaa5e4b09e",
-                "reference": "e4be941b1b2e3d18ff29ed0e1af646eaa5e4b09e",
+                "url": "https://api.github.com/repos/phapi/exception/zipball/6fa08864eb5779b2530e69d1e35b383ef432de14",
+                "reference": "6fa08864eb5779b2530e69d1e35b383ef432de14",
                 "shasum": ""
             },
             "require": {
@@ -75,8 +75,7 @@
             "autoload": {
                 "psr-4": {
                     "Phapi\\": "src/Phapi/",
-                    "Phapi\\Exception\\": "src/Phapi/Exception/",
-                    "Phapi\\Tests\\Exception\\": "tests/Phapi/Exception/"
+                    "Phapi\\Exception\\": "src/Phapi/Exception/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -97,7 +96,7 @@
                 "exceptions",
                 "phapi"
             ],
-            "time": "2015-04-12 21:28:16"
+            "time": "2015-04-23 10:28:12"
         },
         {
             "name": "phapi/http",
@@ -105,12 +104,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phapi/http.git",
-                "reference": "6f0e9fd09143c126c5297fc9f60ad61de397b70e"
+                "reference": "0cff0481cf9d332fac56f1c1a4d7789d7b12cc85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phapi/http/zipball/6f0e9fd09143c126c5297fc9f60ad61de397b70e",
-                "reference": "6f0e9fd09143c126c5297fc9f60ad61de397b70e",
+                "url": "https://api.github.com/repos/phapi/http/zipball/0cff0481cf9d332fac56f1c1a4d7789d7b12cc85",
+                "reference": "0cff0481cf9d332fac56f1c1a4d7789d7b12cc85",
                 "shasum": ""
             },
             "require": {
@@ -125,8 +124,7 @@
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Phapi\\Http\\": "src/Phapi/Http/",
-                    "Phapi\\Tests\\Http\\": "tests/Phapi/Http/"
+                    "Phapi\\Http\\": "src/Phapi/Http/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -147,7 +145,7 @@
                 "phapi",
                 "psr-7"
             ],
-            "time": "2015-04-21 10:55:18"
+            "time": "2015-04-23 10:29:34"
         },
         {
             "name": "psr/http-message",
@@ -565,16 +563,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +619,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/php-code-coverage",
