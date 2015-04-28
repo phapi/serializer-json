@@ -124,4 +124,15 @@ class JsonTest extends TestCase {
             }
         );
     }
+
+    public function testRegisterMimeTypes()
+    {
+        $mockContainer = \Mockery::mock('Phapi\Contract\Di\Container');
+        $mockContainer->shouldReceive('offsetSet')->with('contentTypes', ['application/json', 'text/json']);
+        $mockContainer->shouldReceive('offsetGet')->andReturn([]);
+
+        $deserializer = new Json();
+        $deserializer->setContainer($mockContainer);
+        $deserializer->registerMimeTypes();
+    }
 }
