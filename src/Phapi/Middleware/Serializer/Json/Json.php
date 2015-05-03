@@ -73,8 +73,8 @@ class Json implements SerializerMiddleware
     }
 
     /**
-     * Serializes the body to a JSON string if the attribute "http_accept" or if
-     * an attribute does not exists and the "http_accept" header matches one of
+     * Serializes the body to a JSON string if the attribute "Accept" or if
+     * an attribute does not exists and the "Accept" header matches one of
      * the mime types configured in the serializer.
      *
      * @param ServerRequestInterface $request

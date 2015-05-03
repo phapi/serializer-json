@@ -71,8 +71,8 @@ class Json implements SerializerMiddleware
     }
 
     /**
-     * Deserialize the body to an array if the attribute "http_content_type" or if
-     * an attribute does not exists and the "http_content_type" header matches one of
+     * Deserialize the body to an array if the attribute "Content-Type" or if
+     * an attribute does not exists and the "Content-Type" header matches one of
      * the mime types configured in the deserializer.
      *
      * @param ServerRequestInterface $request
