@@ -118,7 +118,8 @@ class Json implements SerializerMiddleware
             $body->write($json);
 
             // Set the content type of the response
-            $response = $response->withHeader('Content-Type', $accept);
+            $charset = (isset($this->container['charset']) ? ';'. $this->container['charset']: '');
+            $response = $response->withHeader('Content-Type', $accept . $charset);
 
             // Add the body to the response
             $response = $response->withBody($body);
