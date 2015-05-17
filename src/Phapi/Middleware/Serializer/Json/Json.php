@@ -117,6 +117,9 @@ class Json implements SerializerMiddleware
             $body = new Stream('php://memory', 'w+');
             $body->write($json);
 
+            // Set the content type of the response
+            $response = $response->withHeader('Content-Type', $accept);
+
             // Add the body to the response
             $response = $response->withBody($body);
         }
