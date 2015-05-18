@@ -5,6 +5,7 @@ namespace Phapi\Middleware\Serializer\Json;
 use Phapi\Contract\Di\Container;
 use Phapi\Contract\Middleware\SerializerMiddleware;
 use Phapi\Exception\InternalServerError;
+use Phapi\Http\Response;
 use Phapi\Http\Stream;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -88,11 +89,11 @@ class Json implements SerializerMiddleware
         // Call next middleware
         $response = $next($request, $response, $next);
 
-        // Get accept mime type
-        $accept = $this->getAcceptMimeType($request);
+        // Get response content type
+        $contentType = $this->getContentType($response);
 
         // Check if the accept header matches this serializers mime types
-        if (!in_array($accept, $this->mimeTypes)) {
+        if (!in_array($contentType, $this->mimeTypes)) {
             // This serializer does not handle this mime type so there is nothing
             // left to do. Return response.
             return $response;
@@ -108,18 +109,11 @@ class Json implements SerializerMiddleware
         // Check if the body is an array and not empty
         if (is_array($unserializedBody) && !empty($unserializedBody)) {
             // Try and encode the array to json
-            if (false === $json = json_encode($unserializedBody)) {
-                // Encode failed, throw error
-                throw new InternalServerError('Could not serialize content to Json');
-            }
+            $json = $this->serialize($unserializedBody);
 
             // Create a new body with the serialized content
             $body = new Stream('php://memory', 'w+');
             $body->write($json);
-
-            // Set the content type of the response
-            $charset = (isset($this->container['charset']) ? '; charset='. $this->container['charset']: '');
-            $response = $response->withHeader('Content-Type', $accept . $charset);
 
             // Add the body to the response
             $response = $response->withBody($body);
@@ -130,23 +124,37 @@ class Json implements SerializerMiddleware
     }
 
     /**
+     * Serialize body to json
+     *
+     * @param array $unserializedBody
+     * @return string
+     * @throws InternalServerError
+     */
+    private function serialize(array $unserializedBody = [])
+    {
+        if (false === $json = json_encode($unserializedBody)) {
+            // Encode failed, throw error
+            throw new InternalServerError('Could not serialize content to Json');
+        }
+        return $json;
+    }
+
+    /**
      * Check if the request has an attribute set with a mime type that should
      * be used. This is typically a result of content negotiation. If no
      * attribute exists, check for an accept header instead.
      *
-     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
      * @return mixed|string
      */
-    private function getAcceptMimeType(ServerRequestInterface $request)
+    private function getContentType(ResponseInterface $response)
     {
-        // Check for an attribute
-        if (null !== $accept = $request->getAttribute('Accept', null)) {
-            return $accept;
-        }
-
         // Check for an accept header
-        if ($request->hasHeader('Accept')) {
-            return $request->getHeaderLine('Accept');
+        if ($response->hasHeader('Content-Type')) {
+            // Get the first part of the header, for example: exclude charset=utf-8
+
+            $header = $response->getHeader('Content-Type');
+            return trim($header[0]);
         }
 
         return null;

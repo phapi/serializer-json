@@ -14,10 +14,9 @@ class JsonTest extends TestCase {
 
     public function testMimeTypeWithAttribute()
     {
-        $request = new Request([
-            'http_accept' => 'application/json'
-        ]);
+        $request = new Request();
         $response = new Response();
+        $response = $response->withHeader('Content-Type', 'application/json');
 
         $response = $response->withUnserializedBody([ 'key' => 'value', 'another key' => 'second value' ]);
 
@@ -36,9 +35,7 @@ class JsonTest extends TestCase {
 
     public function testNotSuitableAcceptHeader()
     {
-        $request = new Request([
-            'http_accept' => 'application/xml'
-        ]);
+        $request = new Request();
         $response = new Response();
 
         $response = $response->withUnserializedBody([ 'key' => 'value', 'another key' => 'second value' ]);
@@ -54,27 +51,6 @@ class JsonTest extends TestCase {
         );
 
         $this->assertEquals('', (string) $response->getBody());
-    }
-
-    public function testNegotiatedAttribute()
-    {
-        $request = new Request();
-        $request = $request->withAttribute('Accept', 'text/json');
-
-        $response = new Response();
-        $response = $response->withUnserializedBody([ 'key' => 'value', 'another key' => 'second value' ]);
-
-        $serializer = new Json(['text/html']);
-        $response = $serializer(
-            $request,
-            $response,
-            function($request, $response)
-            {
-                return $response;
-            }
-        );
-
-        $this->assertEquals('{"key":"value","another key":"second value"}', (string) $response->getBody());
     }
 
     public function testNoHeaderNorAttribute()
@@ -102,6 +78,8 @@ class JsonTest extends TestCase {
         $request = new Request(['http_accept' => 'application/json']);
 
         $response = \Mockery::mock('Psr\Http\Message\ResponseInterface');
+        $response->shouldReceive('hasHeader')->with('Content-Type')->andReturn(true);
+        $response->shouldReceive('getHeader')->with('Content-Type')->andReturn(['application/json', 'charset=utf-8']);
 
         $serializer = new Json(['text/html']);
         $this->setExpectedException('\RuntimeException', 'Json Serializer could not retrieve unserialized body');
@@ -117,9 +95,10 @@ class JsonTest extends TestCase {
 
     public function testSerializationFail()
     {
-        $request = new Request(['http_accept' => 'application/json']);
+        $request = new Request();
 
         $response = new Response();
+        $response = $response->withHeader('Content-Type', 'application/json');
         $response = $response->withUnserializedBody([ 'key' => "\xB1\x31"]);
 
         $serializer = new Json(['text/html']);
