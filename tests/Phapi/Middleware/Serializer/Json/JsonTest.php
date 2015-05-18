@@ -16,7 +16,7 @@ class JsonTest extends TestCase {
     {
         $request = new Request();
         $response = new Response();
-        $response = $response->withHeader('Content-Type', 'application/json');
+        $response = $response->withHeader('Content-Type', 'application/json;charset=utf-8');
 
         $response = $response->withUnserializedBody([ 'key' => 'value', 'another key' => 'second value' ]);
 
@@ -79,7 +79,7 @@ class JsonTest extends TestCase {
 
         $response = \Mockery::mock('Psr\Http\Message\ResponseInterface');
         $response->shouldReceive('hasHeader')->with('Content-Type')->andReturn(true);
-        $response->shouldReceive('getHeader')->with('Content-Type')->andReturn(['application/json', 'charset=utf-8']);
+        $response->shouldReceive('getHeaderLine')->with('Content-Type')->andReturn('application/json;charset=utf-8');
 
         $serializer = new Json(['text/html']);
         $this->setExpectedException('\RuntimeException', 'Json Serializer could not retrieve unserialized body');

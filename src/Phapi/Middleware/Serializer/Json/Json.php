@@ -153,8 +153,9 @@ class Json implements SerializerMiddleware
         if ($response->hasHeader('Content-Type')) {
             // Get the first part of the header, for example: exclude charset=utf-8
 
-            $header = $response->getHeader('Content-Type');
-            return trim($header[0]);
+            $header = $response->getHeaderLine('Content-Type');
+            $parts = explode(';', $header);
+            return trim($parts[0]);
         }
 
         return null;
