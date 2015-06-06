@@ -3,11 +3,21 @@ Phapi JSON Serializer is a middleware based serializer that converts arrays to J
 
 The JSON Serializer package includes two middleware: <code>Phapi\Middleware\Deserializer\Json</code> and <code>Phapi\Middleware\Serializer\Json</code>. By default they react if the Content Type (Deserializer) and Accept (Serializer) headers are set to either <code>application/json</code> or <code>text/json</code>. It is possible to add more mime types by passing an array to the constructor:
 
+## Installation
+This middleware is by default included in the [Phapi Framework](https://github.com/phapi/phapi) but if you need to install it it's available to install via [Packagist](https://packagist.org) and [Composer](https://getcomposer.org).
+
+```shell
+$ php composer.phar require phapi/serializer-json:1.*
+```
+
+## Configuration
+Both the serializer and deserializer has one configuration option, it's possible to add more mime types that should trigger the serializer/deserializer.
+
 ```php
 <?php
 use Phapi\Middleware\Serializer\Json\Json;
 
-$serializer = new Json(['text/html']);
+$pipeline->pipe(new Json(['text/html']));
 ```
 
 Note that the array passed to the constructor will **replace** the default settings. To keep the default use:
@@ -16,14 +26,7 @@ Note that the array passed to the constructor will **replace** the default setti
 <?php
 use Phapi\Middleware\Serializer\Json\Json;
 
-$serializer = new Json(['application/json', 'text/json', 'text/html']);
-```
-
-To invoke the serializer:
-
-```php
-<?php
-$response = $serializer($request, $response, $next);
+$pipeline->pipe(new Json(['application/json', 'text/json', 'text/html']));
 ```
 
 The above instructions applies to the deserializer as well.
