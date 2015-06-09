@@ -13,6 +13,13 @@ class JsonTest extends TestCase {
     public function testConstruct()
     {
         $deserializer = new Json();
+        $this->assertEquals([ 'username' => 'phapi' ], $deserializer->deserialize('{ "username": "phapi" }'));
+    }
+
+    public function testException()
+    {
+        $deserializer = new Json();
+        $this->setExpectedException('\Phapi\Exception\BadRequest', 'Could not deserialize body (Json)');
         $this->assertEquals([ 'username' => 'phapi' ], $deserializer->deserialize("{ 'username': 'phapi' }"));
     }
 }
