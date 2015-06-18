@@ -20,14 +20,7 @@ use Phapi\Middleware\Serializer\Json\Json;
 $pipeline->pipe(new Json(['text/html']));
 ```
 
-Note that the array passed to the constructor will **replace** the default settings. To keep the default use:
-
-```php
-<?php
-use Phapi\Middleware\Serializer\Json\Json;
-
-$pipeline->pipe(new Json(['application/json', 'text/json', 'text/html']));
-```
+Note that the array passed to the constructor will be merged with the default settings.
 
 The above instructions applies to the deserializer as well.
 
