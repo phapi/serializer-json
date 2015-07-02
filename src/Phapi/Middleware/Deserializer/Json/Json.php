@@ -36,7 +36,8 @@ class Json extends Deserializer
      * @return array
      * @throws BadRequest
      */
-    public function deserialize($body) {
+    public function deserialize($body)
+    {
         // Try to decode
         if (null === $array = json_decode($body, true)) {
             // Throw error if we are unable to decode body
