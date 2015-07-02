@@ -1,7 +1,9 @@
 # JSON Serializer
-Phapi JSON Serializer is a middleware based serializer that converts arrays to JSON. The middleware are [PSR-7](https://github.com/php-fig/http-message) compliant and a package developed for and used by the [Phapi Framework](https://github.com/phapi/phapi).
+The JSON Serializer package contains two middleware, one for serialization and one for deserialization. The two works the same the only difference is that the serializer takes an array and returns JSON and the deserializer does the opposite.
 
-The JSON Serializer package includes two middleware: <code>Phapi\Middleware\Deserializer\Json</code> and <code>Phapi\Middleware\Serializer\Json</code>. By default they react if the Content Type (Deserializer) and Accept (Serializer) headers are set to either <code>application/json</code> or <code>text/json</code>. It is possible to add more mime types by passing an array to the constructor:
+The serializer reacts if the <code>Accept</code> header matches one of the supported mime types and the deserializer reacts if the <code>Content-Type</code> matches the list of supported mime types.
+
+By default the supported mime types are: <code>application/json</code> and <code>text/json</code>. It is possible to add more mime types by passing an array to the constructor.
 
 ## Installation
 This middleware is by default included in the [Phapi Framework](https://github.com/phapi/phapi) but if you need to install it it's available to install via [Packagist](https://packagist.org) and [Composer](https://getcomposer.org).
