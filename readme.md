@@ -26,6 +26,8 @@ Note that the array passed to the constructor will be merged with the default se
 
 The above instructions applies to the deserializer as well.
 
+See the [configuration documentation](http://phapi.github.io/started/configuration/) for more information about how to configure the integration with the Phapi Framework.
+
 ## Phapi
 This middleware is a Phapi package used by the [Phapi Framework](https://github.com/phapi/phapi). The middleware are also [PSR-7](https://github.com/php-fig/http-message) compliant and implements the [Phapi Middleware Contract](https://github.com/phapi/contract).
 
