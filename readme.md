@@ -1,4 +1,9 @@
 # JSON Serializer
+
+[![Build status](https://img.shields.io/travis/phapi/serializer-json.svg?style=flat-square)](https://travis-ci.org/phapi/serializer-json)
+[![Code Climate](https://img.shields.io/codeclimate/github/phapi/serializer-json.svg?style=flat-square)](https://codeclimate.com/github/phapi/serializer-json)
+[![Test Coverage](https://img.shields.io/codeclimate/coverage/github/phapi/serializer-json.svg?style=flat-square)](https://codeclimate.com/github/phapi/serializer-json/coverage)
+
 The JSON Serializer package contains two middleware, one for serialization and one for deserialization. The two works the same the only difference is that the serializer takes an array and returns JSON and the deserializer does the opposite.
 
 The serializer reacts if the <code>Accept</code> header matches one of the supported mime types and the deserializer reacts if the <code>Content-Type</code> matches the list of supported mime types.
